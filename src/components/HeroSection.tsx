@@ -1,7 +1,12 @@
 import { motion } from "framer-motion";
 import heroImage from '../assets/images/HeroSection.jpg';
 
-const HeroSection = ({ onLearnMoreClick }: { onLearnMoreClick: () => void }) => {
+interface HeroSectionProps {
+  onLearnMoreClick: () => void;
+  onBuyClick: () => void;
+}
+
+const HeroSection = ({ onLearnMoreClick, onBuyClick }: HeroSectionProps) => {
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden bg-white">
       <div 
@@ -30,7 +35,7 @@ const HeroSection = ({ onLearnMoreClick }: { onLearnMoreClick: () => void }) => 
           <h2 className="text-2xl md:text-4xl mb-8 text-gray-600 font-medium tracking-wide">
             Safety Electric Driver
           </h2>
-          <div className="text-base md:text-2xl mb-12 max-w-3xl mx-auto text-gray-500 leading-relaxed">
+          <div className="text-lg md:text-2xl mb-12 max-w-3xl mx-auto text-gray-500 leading-relaxed">
             <p>検電器と作業用ドライバーが1つになった</p>
             <p>革新的なツール</p>
             <p className="mt-4">電気が見えるをコンセプトに開発</p>
@@ -42,12 +47,12 @@ const HeroSection = ({ onLearnMoreClick }: { onLearnMoreClick: () => void }) => 
             >
               詳細を見る
             </button>
-            <a 
-              href="#products"
+            <button 
+              onClick={onBuyClick}
               className="bg-yellow-500 text-gray-800 px-10 py-4 rounded-full text-lg font-bold hover:bg-yellow-400 transition-all duration-300 w-56 hover:scale-105 transform shadow-lg"
             >
               ご購入はこちら
-            </a>
+            </button>
           </div>
         </motion.div>
       </div>

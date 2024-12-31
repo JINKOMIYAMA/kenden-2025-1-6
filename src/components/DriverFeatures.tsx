@@ -41,9 +41,9 @@ const features = [
     id: 1,
     title: "先端保護",
     description: "先端6mmまで金属部分をチューブで保護",
-    pcPosition: "top-[150px] left-[0px]",
+    pcPosition: "top-[150px] left-[-10px]",
     mobilePosition: "top-[0px] left-[0px]",
-    pcSize: "max-w-[330px]",
+    pcSize: "max-w-[370px]",
     mobileSize: "max-w-[150px]",
     pcLine: { x1: "50%", y1: "100%", x2: "200%", y2: "200%" },
     mobileLine: { x1: "50%", y1: "100%", x2: "150%", y2: "150%" },
@@ -52,9 +52,9 @@ const features = [
     id: 2,
     title: "テストボタン",
     description: "テストボタンで使用前点検が可能",
-    pcPosition: "top-[40px] right-[230px]",
+    pcPosition: "top-[40px] right-[245px]",
     mobilePosition: "top-[220px] right-[0px]",
-    pcSize: "max-w-[300px]",
+    pcSize: "max-w-[305px]",
     mobileSize: "max-w-[130px]",
     pcLine: { x1: "50%", y1: "100%", x2: "-50%", y2: "200%" },
     mobileLine: { x1: "50%", y1: "100%", x2: "-50%", y2: "150%" },
@@ -75,7 +75,7 @@ const features = [
     title: "滑り止めグリップ",
     description: "ゴム製の持ちやすい滑り止め",
     pcPosition: "bottom-[80px] right-[20px]",
-    mobilePosition: "bottom-[-80px] right-[10px]",
+    mobilePosition: "bottom-[-50px] right-[10px]",
     pcSize: "max-w-sm",
     mobileSize: "max-w-[180px]",
     pcLine: { x1: "50%", y1: "0%", x2: "-50%", y2: "-100%" },
@@ -97,18 +97,37 @@ const features = [
 const DriverFeatures = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  // 余白調整用の設定値（ピクセル単位）
+  const spacingAdjust = {
+    pc: {
+      top: 79,    // PC版上部の余白削減量
+      bottom: 80  // PC版下部の余白削減量
+    },
+    mobile: {
+      top: 70     // モバイル版上部の余白削減量
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
     window.addEventListener('resize', handleResize);
-    
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
-    <section className="relative py-20">
+    <section 
+      className="relative"
+      style={{
+        paddingTop: windowWidth >= 768 
+          ? `calc(5rem - ${spacingAdjust.pc.top}px)` 
+          : `calc(5rem - ${spacingAdjust.mobile.top}px)`,
+        paddingBottom: windowWidth >= 768 
+          ? `calc(5rem - ${spacingAdjust.pc.bottom}px)` 
+          : '5rem'
+      }}
+    >
       <div 
         className="absolute inset-0 z-0 before:absolute before:inset-0 before:bg-gradient-to-t before:from-dark before:to-transparent after:absolute after:inset-0 after:bg-gradient-to-b after:from-dark after:to-transparent"
         style={{
@@ -158,7 +177,7 @@ const DriverFeatures = () => {
                 {/* 上部の特徴（id: 1, 2）用のSVG */}
                 {feature.id <= 2 && (
                   <svg
-                    className="absolute inset-0 text-blue-600"
+                    className="absolute inset-0 text-blue-400"
                     width="100%"
                     height="200"
                     style={{
@@ -190,7 +209,7 @@ const DriverFeatures = () => {
                 {/* 下部の特（id: 3, 4）用のSVG */}
                 {feature.id > 2 && (
                   <svg
-                    className="absolute inset-0 text-blue-600"
+                    className="absolute inset-0 text-blue-400"
                     width="100%"
                     height="200"
                     style={{
@@ -220,7 +239,7 @@ const DriverFeatures = () => {
                 )}
 
                 <div className="bg-gray-900/80 backdrop-blur-sm p-4 rounded-lg border border-blue-600/20">
-                  <h4 className="font-bold mb-2 text-[18px] md:text-[20px] text-blue-300">
+                  <h4 className="font-bold mb-2 text-[18px] md:text-[20px] text-blue-400">
                     {feature.id === 2 ? (
                       <>
                         テスト<br className="block md:hidden" />ボタン
@@ -229,7 +248,7 @@ const DriverFeatures = () => {
                       feature.title
                     )}
                   </h4>
-                  <p className="text-[14px] md:text-[16px] text-gray-200">{feature.description}</p>
+                  <p className="text-[15px] md:text-[18px] text-gray-200">{feature.description}</p>
                 </div>
               </div>
             </motion.div>
