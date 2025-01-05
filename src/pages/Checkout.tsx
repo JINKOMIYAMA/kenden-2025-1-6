@@ -1,13 +1,13 @@
 import { useCart } from '../contexts/CartContext';
 import { useNavigate } from 'react-router-dom';
+import { Plus, Minus, X } from 'lucide-react';
 
 const Checkout = () => {
-  const { items } = useCart();
+  const { items, incrementQuantity, decrementQuantity, removeFromCart } = useCart();
   const navigate = useNavigate();
   const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   const handlePayment = () => {
-    // ここに支払い処理のロジックを追加
     alert('支払い処理が完了しました！');
     navigate('/');
   };
@@ -31,42 +31,73 @@ const Checkout = () => {
   return (
     <div className="min-h-screen bg-dark p-6">
       <div className="max-w-4xl mx-auto bg-gray-900/80 rounded-xl p-8">
-        <h2 className="text-2xl font-bold text-white mb-6">お支払い</h2>
+        <h2 className="text-2xl font-bold text-white mb-6">ショッピングカート</h2>
         
         <div className="space-y-4 mb-8">
-          <h3 className="text-xl text-white mb-4">注文内容</h3>
           {items.map(item => (
-            <div key={item.id} className="flex justify-between items-center bg-gray-800/50 p-4 rounded">
-              <div>
-                <div className="text-white font-medium">{item.name}</div>
-                <div className="text-gray-400">数量: {item.quantity}</div>
+            <div key={item.id} className="bg-gray-800/50 p-4 rounded-lg">
+              <div className="mb-2">
+                <div className="text-white font-medium text-lg">
+                  {item.name}
+                </div>
               </div>
-              <div className="text-white">¥{(item.price * item.quantity).toLocaleString()}</div>
+              
+              <div className="flex justify-between items-center">
+                <div className="text-gray-400 text-lg">
+                  ¥{item.price.toLocaleString()}
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => decrementQuantity(item.id)}
+                    className="p-2 hover:bg-gray-700 rounded-full"
+                  >
+                    <Minus className="w-4 h-4 text-gray-300" />
+                  </button>
+                  
+                  <span className="w-8 text-center text-white text-lg">
+                    {item.quantity}
+                  </span>
+                  
+                  <button
+                    onClick={() => incrementQuantity(item.id)}
+                    className="p-2 hover:bg-gray-700 rounded-full"
+                  >
+                    <Plus className="w-4 h-4 text-gray-300" />
+                  </button>
+
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="p-2 hover:bg-gray-700 rounded-full ml-2"
+                  >
+                    <X className="w-5 h-5 text-red-400" />
+                  </button>
+                </div>
+              </div>
             </div>
           ))}
           
-          <div className="border-t border-gray-700 pt-4 mt-4">
-            <div className="flex justify-between text-xl font-bold text-white">
+          <div className="border-t border-gray-700 pt-6 mt-6">
+            <div className="flex justify-between text-xl font-bold text-white mb-8">
               <span>合計</span>
               <span>¥{total.toLocaleString()}</span>
             </div>
+
+            <div className="flex justify-between items-center">
+              <button
+                onClick={() => navigate('/')}
+                className="text-blue-400 hover:text-blue-300"
+              >
+                ← 買い物を続ける
+              </button>
+
+              <button
+                onClick={handlePayment}
+                className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-3 px-8 rounded-full transition-colors"
+              >
+                購入を確定する
+              </button>
+            </div>
           </div>
-        </div>
-
-        <div className="flex justify-between items-center">
-          <button
-            onClick={() => navigate('/')}
-            className="text-blue-400 hover:text-blue-300"
-          >
-            ← 商品一覧に戻る
-          </button>
-
-          <button
-            onClick={handlePayment}
-            className="bg-yellow-400 hover:bg-blue-400 text-black font-bold py-3 px-8 rounded-full transition-colors"
-          >
-            支払い
-          </button>
         </div>
       </div>
     </div>

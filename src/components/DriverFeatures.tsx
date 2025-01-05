@@ -63,7 +63,7 @@ const features = [
     id: 3,
     title: "LEDインジケーター",
     description: "作業箇所の通電・無電が見える高精度LED",
-    pcPosition: "bottom-[80px] left-[100px]",
+    pcPosition: "bottom-[80px] left-[80px]",
     mobilePosition: "bottom-[200px] left-[0px]",
     pcSize: "max-w-sm",
     mobileSize: "max-w-[135px]",

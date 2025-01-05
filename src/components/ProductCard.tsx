@@ -49,7 +49,7 @@ const ProductCard = ({
             onClick={handleAddToCart}
             className={`${buttonColorClass} text-gray-800 px-6 py-2 rounded-full text-base font-bold transition-colors ml-4 whitespace-nowrap`}
           >
-            購入
+            カートに追加
           </button>
         </div>
       </div>
