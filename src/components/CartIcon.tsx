@@ -11,7 +11,7 @@ const CartIcon = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 395);
+      setIsMobile(window.innerWidth < 430);
     };
 
     window.addEventListener('resize', handleResize);
