@@ -7,11 +7,11 @@ const CartIcon = () => {
   const { itemCount } = useCart();
   const navigate = useNavigate();
   const location = useLocation();
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 380);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 700);
+      setIsMobile(window.innerWidth < 380);
     };
 
     window.addEventListener('resize', handleResize);
@@ -30,8 +30,8 @@ const CartIcon = () => {
       >
         <ShoppingCart className={`${isMobile ? 'w-8 h-8' : 'w-12 h-12'} text-blue-400`} />
         {itemCount > 0 && (
-          <span className={`absolute -top-2 -right-2 bg-red-500 text-white ${
-            isMobile ? 'w-5 h-5 text-sm' : 'w-6 h-6 text-base'
+          <span className={`absolute -top-1 -right-1 bg-red-500 text-white ${
+            isMobile ? 'w-5 h-5 text-sm' : 'w-7 h-7 text-sm'
           } rounded-full flex items-center justify-center`}>
             {itemCount}
           </span>
