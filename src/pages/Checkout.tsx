@@ -7,9 +7,8 @@ const Checkout = () => {
   const navigate = useNavigate();
   const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-  const handlePayment = () => {
-    alert('支払い処理が完了しました！');
-    navigate('/');
+  const handleProceedToPayment = () => {
+    navigate('/payment');
   };
 
   if (items.length === 0) {
@@ -91,10 +90,10 @@ const Checkout = () => {
               </button>
 
               <button
-                onClick={handlePayment}
+                onClick={handleProceedToPayment}
                 className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-3 px-8 rounded-full transition-colors"
               >
-                購入を確定する
+                レジに進む
               </button>
             </div>
           </div>
